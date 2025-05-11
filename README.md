@@ -1,4 +1,4 @@
-new: added local_parts for custom mail aliasing.
+new: added local_parts for custom mail aliasing and removed all text output from `addy new` command except the json (for further processing with jq).
 
 # pyaddy
 A Python CLI to interact with addy.io
