@@ -1,3 +1,5 @@
+new: added local_parts for custom mail aliasing.
+
 # pyaddy
 A Python CLI to interact with addy.io
 

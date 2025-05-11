@@ -71,7 +71,7 @@ def get_specific_alias(id):
 )
 @click.option(
     "--format",
-    help="chosen format for the alias: random_characters, uuid, or random_words",
+    help="chosen format for the alias: random_characters, uuid, random_words or custom",
     type=str,
 )
 @click.option(
@@ -79,13 +79,18 @@ def get_specific_alias(id):
     help="recipient id to add. Default recipient will be used if non is provided",
     type=str,
 )
-def create_new_alias(domain, description, format, recipient_id):
+@click.option(
+    "--local-part",
+    help="local part of the mail (used only if --format=custom",
+    type=str,
+)
+def create_new_alias(domain, description, format, recipient_id, local_part):
     """Create a new alias
 
     Usage:\n
     addy alias new
 
-    addy alias new --domain addymail.com --description "addy created" --format random_words
+    addy alias new --domain addymail.com --description "addy created" --format random_words --local-part mycustomalias
     """
 
     payload = {
@@ -93,10 +98,12 @@ def create_new_alias(domain, description, format, recipient_id):
         "description": description,
         "format": format,
         "recipient_id": recipient_id,
+        "local_part": local_part,
     }
 
     resp = Aliases().create_new_alias(payload)
-    click.echo(f"Create New Alias Info: \n {json.dumps(resp.json(), indent=4)}")
+    #click.echo(f"Create New Alias Info: \n {json.dumps(resp.json(), indent=4)}")
+    click.echo(f"{json.dumps(resp.json(), indent=4)}")
 
 
 @alias.command(name="update", short_help='Update alias "descprition" and "from_name"')
